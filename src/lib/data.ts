@@ -16,7 +16,7 @@ export const recipes: Recipe[] = [
     id: "1",
     title: "Bolo de Chocolate",
     description: "Um delicioso bolo de chocolate fofinho e úmido, perfeito para qualquer ocasião.",
-    image: "/receitas/bolo-de-chocolate",
+    image: "/receitas/bolo-de-chocolate.png",
     prepTime: "15 minutos",
     cookTime: "35 minutos",
     servings: 8,
