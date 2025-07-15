@@ -16,7 +16,7 @@ export default function ReceitasPage(){
                 <div className="flex justify-between w-full">
                     <h1 className="text-3xl font-bold">Todas as Receitas</h1>
 
-                    <button onClick={() => setIsRecipeModalOpen (true)} className="flex items-center gap-2 px-4 py-2 brder roun ded-lg bg-black text-white hover:bg-gray-800 transition-colors">
+                    <button onClick={() => setIsRecipeModalOpen (true)} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black text-white hover:bg-gray-800 transition-colors">
                         <Plus size={16}/>
                         Nova Receita
                     </button>
