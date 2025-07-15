@@ -54,18 +54,24 @@ export default function RecipeFormModal({ isOpen, onClose }: RecipeFormModalProp
     })
 
     const onSubmit = (data: RecipeFormData) => {
-        console.log(data)
+        const recipeData = {
+            ...data,
+            ingredients: data.ingredients.map((ingredient) => ingredient.value),
+            instructions: data.instructions.map((instruction) => instruction.value)
+        }
+
+        console.log(recipeData)
         reset()
         onClose()
     };
 
 
-    const inputStyle = "p-2 border border-zinc-200 rounded-md flex-grow";
+    const inputStyle = "p-2 border border-zinc-200 rounded-md flex-grow w-full";
 
 
     return(
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="bg-white imn-w-2xl">
+            <DialogContent className="bg-white min-w-2xl max-h-[90dvh] overflow-y-scroll">
                 <DialogHeader>
                     <DialogTitle>Nova Receita</DialogTitle>
                 </DialogHeader>
@@ -130,6 +136,7 @@ export default function RecipeFormModal({ isOpen, onClose }: RecipeFormModalProp
                                 {/* Conteudo */}
                                 {ingredientFields.map((field, index) => (
                                     <div key={field.id} className="flex gap-2 w-full">
+                                        <div className="flex-grow">
                                         <input 
                                             id="ingredients" 
                                             type="text" 
@@ -137,6 +144,8 @@ export default function RecipeFormModal({ isOpen, onClose }: RecipeFormModalProp
                                             placeholder="Digite um ingrediente" 
                                             {...register(`ingredients.${index}.value`)
                                         }/>
+                                        {errors.ingredients?.[index]?.value && <span className="textsmall text-red-500">{errors.ingredients?.[index].value.message}</span>}
+                                        </div>
                                         { ingredientFields.length > 1 && (
                                             <button 
                                                 type="button" 
@@ -164,12 +173,16 @@ export default function RecipeFormModal({ isOpen, onClose }: RecipeFormModalProp
                                 {/*Conteudo*/}                
                                  {instructionFields.map((field,index) => (
                                     <div key={field.id} className="flex gap-2 w-full">
-                                        <textarea 
-                                        id="instructions"  
-                                        className={inputStyle}
-                                        placeholder="Digite uma instrução" 
-                                        {...register(`instructions.${index}.value`)}/>
-                                        { ingredientFields.length > 1 && <button 
+                                        <div className="flex-grow">
+                                            <textarea 
+                                                id="instructions"  
+                                                className={inputStyle}
+                                                placeholder="Digite uma instrução" 
+                                                {...register(`instructions.${index}.value`)}
+                                            />
+                                            {errors.instructions?.[index]?.value && <span className="textsmall text-red-500">{errors.instructions?.[index].value.message}</span>}
+                                        </div>
+                                        { instructionFields.length > 1 && <button 
                                         type="button" 
                                         className="bg-white border border-zinc-300 rounded-md hover:bg-gray-100 transition-colors px-4 py-2 font medium h-fit"
                                         onClick={() => removeInstructions(index)}
